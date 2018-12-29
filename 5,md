@@ -1,0 +1,48 @@
+```c++
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int max_len=0;
+        int left = 0;
+        int right = 0;
+        for(int i = 0;i < s.length(); ++i){
+            int odd_left = i - 1;
+            int odd_right = i + 1;
+            int even_left = i;
+            int even_right = i + 1;
+            while(odd_left >= 0 && odd_right < s.length()){
+                if(s[odd_left]==s[odd_right]){
+                    odd_left -= 1;
+                    odd_right += 1;
+                }
+                else
+                    break;
+            }
+            if(odd_right-odd_left-1>max_len){
+                left = odd_left + 1;
+                right = odd_right - 1;
+                max_len = odd_right-odd_left-1;
+            }
+            //cout << left <<right <<endl;
+            while(even_left >= 0 && even_right < s.length()){
+                if(s[even_left]==s[even_right]){
+                    even_left -= 1;
+                    even_right += 1;
+                }
+                else
+                    break;
+            }
+            if(even_right-even_left-1>max_len){
+                left = even_left + 1;
+                right = even_right - 1;
+                max_len = even_right-even_left-1;
+            }
+            // cout << i << ":"<< endl;
+            // cout << s.substr(left,right + 1) << endl;
+             // cout << left << " " << right << endl;
+            // cout << max_len << endl; 
+        }
+        return s.substr(left,max_len);
+    }
+};
+```
